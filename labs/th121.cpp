@@ -1,3 +1,98 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+string ltrim(const string &);
+string rtrim(const string &);
+vector<string> split(const string &);
+
+/*
+ * reverseArray
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts INTEGER_ARRAY a as parameter.
+ */
+vector<int> reverseArray(const vector<int> &a) {
+  int n = a.size();
+  vector<int> reversedArray(n);
+
+  // Reversing the array
+  for (int i = 0; i < n; ++i) {
+    reversedArray[i] = a[n - 1 - i];
+  }
+
+  return reversedArray;
+}
+
+int main() {
+
+  // get the array count input and convert to int
+  string arr_count_temp;
+  getline(cin, arr_count_temp);
+  int arr_count = stoi(ltrim(rtrim(arr_count_temp)));
+
+  // get the space separated integers and convert it to a vector of strings
+  string arr_temp_temp;
+  getline(cin, arr_temp_temp);
+  vector<string> arr_temp = split(rtrim(arr_temp_temp));
+
+  //
+  vector<int> arr(arr_count);
+
+  for (int i = 0; i < arr_count; i++) {
+    int arr_item = stoi(arr_temp[i]);
+
+    arr[i] = arr_item;
+  }
+
+  vector<int> res = reverseArray(arr);
+
+  for (size_t i = 0; i < res.size(); i++) {
+    cout << res[i];
+
+    if (i != res.size() - 1) {
+      cout << " ";
+    }
+  }
+
+  cout << "\n";
+
+  return 0;
+}
+
+string ltrim(const string &str) {
+  string s(str);
+  s.erase(s.begin(), find_if(s.begin(), s.end(),
+                             [](unsigned char c) { return !isspace(c); }));
+  return s;
+}
+
+string rtrim(const string &str) {
+  string s(str);
+  s.erase(
+      find_if(s.rbegin(), s.rend(), [](unsigned char c) { return !isspace(c); })
+          .base(),
+      s.end());
+  return s;
+}
+
+vector<string> split(const string &str) {
+  vector<string> tokens;
+
+  string::size_type start = 0;
+  string::size_type end = 0;
+
+  while ((end = str.find(" ", start)) != string::npos) {
+    tokens.push_back(str.substr(start, end - start));
+
+    start = end + 1;
+  }
+
+  tokens.push_back(str.substr(start));
+
+  return tokens;
+}
+
 /*
 An array is a type of data structure that stores elements of the same type in a
 contiguous block of memory. In an array, A, of size N, each memory location has
@@ -35,15 +130,14 @@ Result
 
 */
 
-// Solution ######
 /*
+// Solution ######
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <iostream>
 #include <vector>
 using namespace std;
-
 
 int main() {
             int N;
@@ -62,124 +156,3 @@ int main() {
             return 0;
 }
 */
-
-// #include "bits_stdc++.h"
-#include <algorithm>
-#include <cctype>
-#include <iostream>
-#include <string>
-#include <vector>
-
-using namespace std;
-
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &);
-
-/*
- * Complete the 'reverseArray' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY a as parameter.
- */
-
-vector<int> reverseArray(const vector<int> &a) {
-  int n = a.size();
-  vector<int> reversedArray(n);
-
-  // Reversing the array
-  for (int i = 0; i < n; ++i) {
-    reversedArray[i] = a[n - 1 - i];
-  }
-
-  return reversedArray;
-}
-
-int main() {
-
-  string arr_count_temp;
-  getline(cin, arr_count_temp);
-
-  int arr_count = stoi(ltrim(rtrim(arr_count_temp)));
-
-  string arr_temp_temp;
-  getline(cin, arr_temp_temp);
-
-  vector<string> arr_temp = split(rtrim(arr_temp_temp));
-
-  vector<int> arr(arr_count);
-
-  for (int i = 0; i < arr_count; i++) {
-    int arr_item = stoi(arr_temp[i]);
-
-    arr[i] = arr_item;
-  }
-
-  vector<int> res = reverseArray(arr);
-
-  for (size_t i = 0; i < res.size(); i++) {
-    cout << res[i];
-
-    if (i != res.size() - 1) {
-      cout << " ";
-    }
-  }
-
-  cout << "\n";
-
-  return 0;
-}
-
-// string ltrim(const string &str) {
-//   string s(str);
-
-//   s.erase(s.begin(),
-//           find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace))));
-
-//   return s;
-// }
-
-// string rtrim(const string &str) {
-//   string s(str);
-
-//   s.erase(
-//       find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-//       s.end());
-
-//   return s;
-// }
-std::string ltrim(const std::string &str) {
-  std::string s(str);
-  // reimplemented ptr_fun to lambda
-  s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
-            return !std::isspace(ch);
-          }));
-  return s;
-}
-
-std::string rtrim(const std::string &str) {
-  std::string s(str);
-  // reimplemented ptr_fun to lambda
-  s.erase(std::find_if(s.rbegin(), s.rend(),
-                       [](unsigned char ch) { return !std::isspace(ch); })
-              .base(),
-          s.end());
-  return s;
-}
-
-vector<string> split(const string &str) {
-  vector<string> tokens;
-
-  string::size_type start = 0;
-  string::size_type end = 0;
-
-  while ((end = str.find(" ", start)) != string::npos) {
-    tokens.push_back(str.substr(start, end - start));
-
-    start = end + 1;
-  }
-
-  tokens.push_back(str.substr(start));
-
-  return tokens;
-}

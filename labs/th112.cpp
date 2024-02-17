@@ -1,29 +1,3 @@
-/*
-
-In this challenge, you will use a for loop to increment a variable through a
-range. Input Format You will be given two positive integers, a and b (a < b),
-separated by a newline.
-
-Output Format
-For each integer n in the inclusive interval a, b :
-
-If 1 <= n <= 9, then print the English representation of it in lowercase.
-Else if n > 9 and it is an even number, then print "even".
-Else if n > 9 and it is an odd number, then print "odd".
-
-Note: a, b = {x; a < x < b} = {a, a + 1, .., b}
-
-Sample Input
-8
-11
-
-Sample Output
-eight
-nine
-even
-odd
-*/
-
 #include <iostream>
 using namespace std;
 
@@ -37,6 +11,7 @@ string n2word(int n) {
 int main() {
   int start, end;
   cin >> start >> end;
+
   ////////////////////////////////
   // lame method
   // for (int i = start; i < (end + 1); i++) {
@@ -68,6 +43,7 @@ int main() {
   //     cout << "error" << endl;
   //   }
   // }
+
   ////////////////////////////////
   // better method
   // for (int i = start; i < (end + 1); i++) {
@@ -77,6 +53,7 @@ int main() {
   // cout << ((i % 2 == 0) ? "even" : "odd") << endl;
   // }
   // }
+
   ////////////////////////////////
   // best method
   for (int i = start; i < (end + 1); i++) {
@@ -84,3 +61,28 @@ int main() {
   }
   return 0;
 }
+
+/*
+In this challenge, you will use a for loop to increment a variable through a
+range. Input Format You will be given two positive integers, a and b (a < b),
+separated by a newline.
+
+Output Format
+For each integer n in the inclusive interval a, b :
+
+If 1 <= n <= 9, then print the English representation of it in lowercase.
+Else if n > 9 and it is an even number, then print "even".
+Else if n > 9 and it is an odd number, then print "odd".
+
+Note: a, b = {x; a < x < b} = {a, a + 1, .., b}
+
+Sample Input
+8
+11
+
+Sample Output
+eight
+nine
+even
+odd
+*/

@@ -1,3 +1,14 @@
+#include <iostream>
+using namespace std;
+
+// get the sum of three space separated inputs
+int main() {
+  int a, b, c;
+  cin >> a >> b >> c;
+  cout << a + b + c << endl;
+  return 0;
+}
+
 /*
 In C++,
 you can read a single whitespace-separated token of input using cin,
@@ -31,12 +42,3 @@ Sample Output
 Explanation
 The sum of the three numbers is 1 + 2 + 7 = 10.
 */
-#include <iostream>
-using namespace std;
-
-int main() {
-  int a, b, c;
-  cin >> a >> b >> c;
-  cout << a + b + c << endl;
-  return 0;
-}

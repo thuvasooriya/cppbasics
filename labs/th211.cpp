@@ -1,4 +1,5 @@
-#include "bits_stdc++.h"
+#include <iostream>
+#include <vector>
 using namespace std;
 
 string ltrim(const string &);
@@ -6,13 +7,12 @@ string rtrim(const string &);
 vector<string> split(const string &);
 
 /*
- * Complete the 'insertionSort1' function below.
+ * insertionSort1
  *
  * The function accepts following parameters:
  *  1. INTEGER n
  *  2. INTEGER_ARRAY arr
  */
-
 void insertionSort1(int n, vector<int> arr) {
   int i = n - 1;     // last index
   int temp = arr[i]; // last element
@@ -62,20 +62,17 @@ int main() {
 
 string ltrim(const string &str) {
   string s(str);
-
-  s.erase(s.begin(),
-          find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace))));
-
+  s.erase(s.begin(), find_if(s.begin(), s.end(),
+                             [](unsigned char c) { return !isspace(c); }));
   return s;
 }
 
 string rtrim(const string &str) {
   string s(str);
-
   s.erase(
-      find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+      find_if(s.rbegin(), s.rend(), [](unsigned char c) { return !isspace(c); })
+          .base(),
       s.end());
-
   return s;
 }
 
