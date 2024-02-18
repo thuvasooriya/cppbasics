@@ -42,7 +42,7 @@ void merge(int *arr, int l, int m, int r) {
     k++;
   }
 
-  // clearing allocated memory :)
+  // free the allocated memory :)
   delete[] L;
   delete[] R;
 }
