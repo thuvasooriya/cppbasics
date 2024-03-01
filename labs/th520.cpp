@@ -16,58 +16,50 @@ vector<string> split(const string &);
  *  3. INTEGER_ARRAY b
  */
 int twoStacks(int maxSum, vector<int> a, vector<int> b) {
-  // int n = a.size();
-  // int m = b.size();
-  //
-  // int sum = 0;
-  // int picks = 0;
-  // int i = 0;
-  // int j = 0;
-  //
-  // // remove elements from first stack till maxSum
-  // while (i < n && sum + a[i] <= maxSum) {
-  //   sum += a[i];
-  //   i++;
-  //   picks++;
-  // }
-  //
-  // // dealing with second stack
-  // while (j < m && i >= 0) {
-  //   // when we chewed the whole first stack and still less than maxSum
-  //   sum += b[j];
-  //   j++;
-  //
-  //   // sum went beyond maxSum in the first array at some point
-  //   while (sum > maxSum && i > 0) {
-  //     i--;
-  //     sum -= a[i];
-  //   }
-  //
-  //   // Update count if the current combination yields more removed elements
-  //   if (sum <= maxSum) {
-  //     picks = max(picks, i + j);
-  //   }
-  // }
-  // return picks;
-  // todo: look for a simpler implementation
   int n = a.size(), m = b.size();
   int i = 0, j = 0, score = 0, sum = 0;
 
-  while (i < n && sum + a[i] <= maxSum) {
-    sum += a[i++];
-    score++;
-  }
+  // method with careful checks :::wip
+  // // Iterate until either the sum exceeds maxSum or we reach the end of both
+  // // arrays
+  // while ((i < n || j < m) &&
+  //        sum + min(i < n ? a[i] : INT_MAX, j < m ? b[j] : INT_MAX) <= maxSum) {
+  //   // Choose the next smallest element between a[i] and b[j]
+  //   int nextElement = min(i < n ? a[i] : INT_MAX, j < m ? b[j] : INT_MAX);
+  //
+  //   // Update sum and count
+  //   sum += nextElement;
+  //   score++;
+  //
+  //   // Move to the next element in the array from which the smallest element was
+  //   // chosen
+  //   if (i < n && a[i] == nextElement)
+  //     i++;
+  //   else
+  //     j++;
+  // }
 
-  while (j < m && i >= 0) {
-    sum += b[j++];
-
-    while (sum > maxSum && i > 0)
-      sum -= a[--i];
-
-    if (sum <= maxSum)
-      score = max(score, i + j);
-  }
-
+  // method involving a lot of undos
+  // // remove from first array untill it exceeds maxSum
+  // while (i < n && sum + a[i] <= maxSum) {
+  //   // using compound assignment for shorter code
+  //   sum += a[i++]; // access a[i] and increment i, post-increment operation
+  //   score++;
+  // }
+  //
+  // // now iteratively undo the first array and check with second array
+  // while (j < m && i >= 0) {
+  //   sum += b[j++];
+  //
+  //   // undo first array if sum is high and elements left
+  //   while (sum > maxSum && i > 0)
+  //     sum -= a[--i]; // here decrement i is performed before access,
+  //     pre-decrement
+  //
+  //   // only update the score when correct
+  //   if (sum <= maxSum)
+  //     score = max(score, i + j);
+  // }
   return score;
 }
 
