@@ -1,8 +1,8 @@
 #include <iostream>
-using namespace std;
 
 class Node {
 public:
+  // all properties and methods of this class are public
   int data;
   Node *left;
   Node *right;
@@ -174,6 +174,7 @@ int main() {
 //
 //     return 0;
 // }
+
 /*
  You are given pointer to the root of the binary search tree and two values vl
 and v2. You need to return the lowest common ancestor (LCA) of vl and 2 in the
