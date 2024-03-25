@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include <vector>
 
 using namespace std;
@@ -15,38 +16,87 @@ vector<string> split(const string &);
  *  2. INTEGER_ARRAY A
  */
 int cookies(int k, vector<int> A) {
+  priority_queue<int, vector<int>, greater<int>> pq(A.begin(),
+                                                    A.end()); // Min-heap
+  int operations = 0;
 
-}
+  while (!pq.empty()) {
+    int leastSweet = pq.top();
+    pq.pop();
 
-int main()
-{
-    string first_multiple_input_temp;
-    getline(cin, first_multiple_input_temp);
-
-    vector<string> first_multiple_input = split(rtrim(first_multiple_input_temp));
-
-    int n = stoi(first_multiple_input[0]);
-
-    int k = stoi(first_multiple_input[1]);
-
-    string A_temp_temp;
-    getline(cin, A_temp_temp);
-
-    vector<string> A_temp = split(rtrim(A_temp_temp));
-
-    vector<int> A(n);
-
-    for (int i = 0; i < n; i++) {
-        int A_item = stoi(A_temp[i]);
-
-        A[i] = A_item;
+    if (leastSweet >= k) {
+      break; // All remaining cookies have sweetness >= k
     }
 
-    int result = cookies(k, A);
+    if (pq.empty()) {
+      return -1; // Not possible to create a cookie with sweetness >= k
+    }
 
-    cout << result << "\n";
+    int secondLeastSweet = pq.top();
+    pq.pop();
 
-    return 0;
+    int newSweet = leastSweet + 2 * secondLeastSweet;
+    pq.push(newSweet);
+    operations++;
+  }
+
+  return operations;
+}
+
+/* author's solution
+int cookies(int k, vector<int> A) {
+    int count = 0;
+    make_heap(A.begin(),A.end(),greater<int>());//create min heap
+
+    while(A.size()>1 && A.front() < k){
+        int least1 = A.front();
+        pop_heap(A.begin(),A.end(),greater<int>());
+        A.pop_back(); //remove the smallest element
+
+        int least2 = A.front();
+        pop_heap(A.begin(),A.end(),greater<int>());
+        A.pop_back(); //remove the new smallest element
+
+        int temp = least1 + 2*least2;
+        A.push_back(temp);
+        push_heap(A.begin(),A.end(),greater<int>()); // adjusts the heap to
+maintain the min heap property
+
+        count++;
+
+    }
+    return (A.front()>=k)?count:-1;
+}
+ */
+
+int main() {
+  string first_multiple_input_temp;
+  getline(cin, first_multiple_input_temp);
+
+  vector<string> first_multiple_input = split(rtrim(first_multiple_input_temp));
+
+  int n = stoi(first_multiple_input[0]);
+
+  int k = stoi(first_multiple_input[1]);
+
+  string A_temp_temp;
+  getline(cin, A_temp_temp);
+
+  vector<string> A_temp = split(rtrim(A_temp_temp));
+
+  vector<int> A(n);
+
+  for (int i = 0; i < n; i++) {
+    int A_item = stoi(A_temp[i]);
+
+    A[i] = A_item;
+  }
+
+  int result = cookies(k, A);
+
+  cout << result << "\n";
+
+  return 0;
 }
 
 string ltrim(const string &str) {
@@ -66,30 +116,31 @@ string rtrim(const string &str) {
 }
 
 vector<string> split(const string &str) {
-    vector<string> tokens;
+  vector<string> tokens;
 
-    string::size_type start = 0;
-    string::size_type end = 0;
+  string::size_type start = 0;
+  string::size_type end = 0;
 
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
+  while ((end = str.find(" ", start)) != string::npos) {
+    tokens.push_back(str.substr(start, end - start));
 
-        start = end + 1;
-    }
+    start = end + 1;
+  }
 
-    tokens.push_back(str.substr(start));
+  tokens.push_back(str.substr(start));
 
-    return tokens;
+  return tokens;
 }
 
 /*
-Jesse loves cookies and wants the sweetness of some cookies to be greater than value k. 
-To do this, two cookies with the least sweetness are repeatedly mixed. 
+Jesse loves cookies and wants the sweetness of some cookies to be greater than
+value k. To do this, two cookies with the least sweetness are repeatedly mixed.
 This creates a special combined cookie with:
 sweetness = (1x Least sweet cookie + 2× 2nd least sweet cookie).
 This occurs until all the cookies have a sweetness ≥ k.
 
-Given the sweetness of a number of cookies, determine the minimum number of operations required. If it is not possible, return -1.
+Given the sweetness of a number of cookies, determine the minimum number of
+operations required. If it is not possible, return -1.
 
 Example
 k = 9
@@ -110,8 +161,9 @@ Returns
 • int: the number of iterations required or -1
 
 Input Format
-The first line has two space-separated integers, n and k, the size of Al] and the minimum required sweetness respectively.
-The next line contains n space-separated integers, A[e].
+The first line has two space-separated integers, n and k, the size of Al] and
+the minimum required sweetness respectively. The next line contains n
+space-separated integers, A[e].
 
 Constraints
 
@@ -129,11 +181,11 @@ Sample Output
 2
 
 Explanation
-Combine the first two cookies to create a cookie with sweetness = 1 × 1 + 2 × 2 = 5
-After this operation, the cookies are 3, 5, 9, 10, 12.
-Then, combine the cookies with sweetness 3 and sweetness 5, to create a cookie with resulting sweetness = 1 x 3 + 2 × 5 = 13
-Now, the cookies are 9, 10, 12, 13.
-All the cookies have a sweetness ≥ 7.
+Combine the first two cookies to create a cookie with sweetness = 1 × 1 + 2 × 2
+= 5 After this operation, the cookies are 3, 5, 9, 10, 12. Then, combine the
+cookies with sweetness 3 and sweetness 5, to create a cookie with resulting
+sweetness = 1 x 3 + 2 × 5 = 13 Now, the cookies are 9, 10, 12, 13. All the
+cookies have a sweetness ≥ 7.
 
 Thus, 2 operations are required to increase the sweetness.
 */
