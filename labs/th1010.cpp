@@ -10,7 +10,7 @@ string rtrim(const string &);
 vector<string> split(const string &);
 
 /*
- * Complete the 'bfs' function below.
+ * 'bfs' function
  *
  * The function is expected to return an INTEGER_ARRAY.
  * The function accepts following parameters:
@@ -19,7 +19,6 @@ vector<string> split(const string &);
  *  3. 2D_INTEGER_ARRAY edges
  *  4. INTEGER s
  */
-
 vector<int> bfs(int n, int m, vector<vector<int>> edges, int s) {
   // create an adjacency list to represent the graph
   vector<vector<int>> adj_list(n + 1);
@@ -150,77 +149,80 @@ vector<string> split(const string &str) {
 
   return tokens;
 }
-// Consider an undirected graph where each edge weighs 6 units. Each of the
-// nodes is labeled consecutively from 1 to n.
 
-// You will be given a number of queries. For each query, you will be given a
-// list of edges describing an undirected graph. After you create a
-// representation of the graph, you must determine and report the shortest
-// distance to each of the other nodes from a given starting position using the
-// breadth-first search algorithm (BFS). Return an array of distances from the
-// start node in node number order. If a node is unreachable, return - 1 for
-// that node.
+/*
+Consider an undirected graph where each edge weighs 6 units. Each of the
+nodes is labeled consecutively from 1 to n.
 
-// Example
-// The following graph is based on the listed inputs:
-// n = 5 // number of nodes
-// m = 3 // number of edges
-// edges = [1, 2], [1, 3], [3, 4]
-// 8 = 1// starting node
+You will be given a number of queries. For each query, you will be given a
+list of edges describing an undirected graph. After you create a
+representation of the graph, you must determine and report the shortest
+distance to each of the other nodes from a given starting position using the
+breadth-first search algorithm (BFS). Return an array of distances from the
+start node in node number order. If a node is unreachable, return - 1 for
+that node.
 
-// All distances are from the start node 1. Outputs are calculated for distances
-// to nodes 2 through 5: [6, 6, 12, - 1]. Each edge is 6 units, and the
-// unreachable node 5 has the required return distance of - 1. Function
-// Description
+Example
+The following graph is based on the listed inputs:
+n = 5 // number of nodes
+m = 3 // number of edges
+edges = [1, 2], [1, 3], [3, 4]
+8 = 1// starting node
 
-// Complete the bis function in the editor below. If a node is unreachable, its
-// distance is -1.
+All distances are from the start node 1. Outputs are calculated for distances
+to nodes 2 through 5: [6, 6, 12, - 1]. Each edge is 6 units, and the
+unreachable node 5 has the required return distance of - 1. Function
+Description
 
-// bfs has the following parameters):
-// int n: the number of nodes
-// int m: the number of edges
-// int edges[m][2]: start and end nodes for edges
-// int s: the node to start traversals from
+Complete the bis function in the editor below. If a node is unreachable, its
+distance is -1.
 
-// Returns
+bfs has the following parameters):
+int n: the number of nodes
+int m: the number of edges
+int edges[m][2]: start and end nodes for edges
+int s: the node to start traversals from
 
-// is not reachable) int[n-1]: the distances to nodes in increasing node number
-// order, not including the start node (-1 if a node
+Returns
 
-// Input Format
+int[ n-1 ] : the distances to nodes in increasing node number order, not
+including the start node (-1 if a node is not reachable)
 
-// The first line contains an integer 9, the number of queries. Each of the
-// following 9 sets of lines has the following format:
+Input Format
 
-// The first line contains two space-separated integers n and m, the number of
-// nodes and edges in the graph. Each line i of the m subsequent lines contains
-// two space-separated integers, u and v, that describe an edge between nodes u
-// and v. The last line contains a single integer, s, the node number to start
-// from.
+The first line contains an integer 9, the number of queries. Each of the
+following 9 sets of lines has the following format:
 
-// Constraints
+The first line contains two space-separated integers n and m, the number of
+nodes and edges in the graph. Each line i of the m subsequent lines contains
+two space-separated integers, u and v, that describe an edge between nodes u
+and v. The last line contains a single integer, s, the node number to start
+from.
 
-// 1 <= q <= 10
-// 2 <= n <= 1000
-// 1 <= n(n-1)/2
-// 1 <= u, v, s <= n
+Constraints
 
-// Input
-// 2
-// 4 2
-// 1 2
-// 1 3
-// 1
-// 3 1
-// 2 3
-// 2
-// Result
-// 6 6 -1
-// -1 6
-// 1
-// 5 3
-// 1 2
-// 1 3
-// 3 4
-// 1
-// 6 6 12 -1
+1 <= q <= 10
+2 <= n <= 1000
+1 <= n(n-1)/2
+1 <= u, v, s <= n
+
+Input
+2
+4 2
+1 2
+1 3
+1
+3 1
+2 3
+2
+Result
+6 6 -1
+-1 6
+1
+5 3
+1 2
+1 3
+3 4
+1
+6 6 12 -1
+*/
